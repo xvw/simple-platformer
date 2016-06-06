@@ -6,6 +6,8 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.util.FlxColor;
 import flixel.FlxObject;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxTween.TweenOptions;
 
 class PlayState extends FlxState
 {
@@ -33,24 +35,24 @@ class PlayState extends FlxState
 	private function createCollisionMap() {
 		hitmap = new FlxTypedGroup<FlxSprite>(100);
 		// Box the level
-		box(0, -1, width, 1, FlxColor.WHITE);
-		box(-1, 0, 1, height, FlxColor.WHITE);
-		box(width+1, 1, 1, height, FlxColor.WHITE);		
+		box(0, -1, width, 1);
+		box(-1, 0, 1, height);
+		box(width+1, 1, 1, height);
 	}
 
 	private function collisions() {
 		// Here create all of your collisions
-		box(0, height-box_height, 150, box_height, FlxColor.WHITE);
-		box(280, height-box_height, width-280, box_height, FlxColor.WHITE);
+		box(0, height-box_height, 150, box_height);
+		box(280, height-box_height, width-280, box_height);
+		// Movable platform
+		var b = box(420, height-(box_height*3), 200, box_height);
+		FlxTween.tween(b, { x: 220 }, 1, { type: FlxTween.PINGPONG });
 	}
 
-	private function box(x:Int, y:Int, w:Int, h:Int, color:FlxColor) {
-		var box = new FlxSprite();
-		box.makeGraphic(w, h, color);
-		box.x = x;
-		box.y = y;
-		box.immovable = true;
+	private function box(x:Int, y:Int, w:Int, h:Int) : Box {
+		var box = new Box(x, y, w, h);
 		hitmap.add(box);
+		return box;
 	}
 
 	override public function update(elapsed:Float):Void

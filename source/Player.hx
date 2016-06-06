@@ -8,6 +8,7 @@ import flixel.FlxObject;
 class Player extends FlxSprite {
 
   private var last_y: Float;
+  private var jumping: Bool;
 
   override public function new() {
     super();
@@ -16,14 +17,19 @@ class Player extends FlxSprite {
   }
 
   private function initializePhysic() {
-    maxVelocity.x = 1200;
-		maxVelocity.y = 5000;
-		acceleration.y = 2000;
+    jumping = false;
+    maxVelocity.x = 200;
+		maxVelocity.y = 1200;
+		acceleration.y = 1500;
     last_y = velocity.y;
   }
 
   public function falls(): Bool {
     return last_y != velocity.y;
+  }
+
+  public function jumps(): Bool {
+    return jumping;
   }
 
   private function resetVelocityParameters() {
@@ -32,36 +38,43 @@ class Player extends FlxSprite {
   }
 
   private function updateLateralMovement() {
+    if (FlxG.keys.pressed.SPACE) {
+      jump();
+    }
     if (FlxG.keys.pressed.RIGHT) {
-      velocity.x += 10;
+      velocity.x += maxVelocity.x / 10;
     } else if (FlxG.keys.pressed.LEFT) {
-      velocity.x -= 10;
+      velocity.x -= maxVelocity.x / 10;
     } else {
       resetVelocityParameters();
     }
   }
 
   public function jump() {
-    trace("JUMP!");
-  }
-
-  private function updatePhysic() {
     if (!falls()) {
-      updateJump();
+      jumping = true;
     }
-    last_y = velocity.y;
   }
 
   private function updateJump() {
-    if (FlxG.keys.pressed.SPACE) {
-      jump();
+    if (jumps()) {
+      velocity.y -= maxVelocity.y / 5;
+      if (velocity.y <= -maxVelocity.y / 2) {
+        jumping = false;
+      }
     }
   }
 
+
+  private function updatePhysic() {
+    last_y = velocity.y;
+    updateJump();
+  }
+
   override public function update(elapsed:Float) {
-    super.update(elapsed);
     updateLateralMovement();
     updatePhysic();
+    super.update(elapsed);
   }
 
 }
