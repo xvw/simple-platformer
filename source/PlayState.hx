@@ -45,8 +45,8 @@ class PlayState extends FlxState
 		box(0, height-box_height, 150, box_height);
 		box(280, height-box_height, width-280, box_height);
 		// Movable platform
-		var b = box(420, height-(box_height*3), 200, box_height);
-		FlxTween.tween(b, { x: 220 }, 1, { type: FlxTween.PINGPONG });
+		var b = box(420, height-(box_height*3) + 12, 200, box_height);
+		FlxTween.tween(b, { y: 220 }, 1, { type: FlxTween.PINGPONG });
 	}
 
 	private function box(x:Int, y:Int, w:Int, h:Int) : Box {
@@ -58,6 +58,6 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-		FlxG.overlap(hitmap, player, FlxObject.separate);
+		FlxG.collide(player, hitmap);
 	}
 }

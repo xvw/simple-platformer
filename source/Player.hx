@@ -20,7 +20,7 @@ class Player extends FlxSprite {
     jumping = false;
     maxVelocity.x = 200;
 		maxVelocity.y = 1200;
-		acceleration.y = 1500;
+		acceleration.y = 2200;
     last_y = velocity.y;
   }
 
@@ -42,9 +42,9 @@ class Player extends FlxSprite {
       jump();
     }
     if (FlxG.keys.pressed.RIGHT) {
-      velocity.x += maxVelocity.x / 10;
+      velocity.x += maxVelocity.x / 5;
     } else if (FlxG.keys.pressed.LEFT) {
-      velocity.x -= maxVelocity.x / 10;
+      velocity.x -= maxVelocity.x / 5;
     } else {
       resetVelocityParameters();
     }
@@ -58,8 +58,8 @@ class Player extends FlxSprite {
 
   private function updateJump() {
     if (jumps()) {
-      velocity.y -= maxVelocity.y / 5;
-      if (velocity.y <= -maxVelocity.y / 2) {
+      velocity.y -= maxVelocity.y / 2;
+      if (velocity.y <= -maxVelocity.y / 10) {
         jumping = false;
       }
     }
