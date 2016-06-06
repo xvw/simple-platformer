@@ -511,7 +511,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "12",
+			build: "16",
 			company: "HaxeFlixel",
 			file: "simple-platformer",
 			fps: 60,
