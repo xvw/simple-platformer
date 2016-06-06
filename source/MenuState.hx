@@ -8,8 +8,7 @@ import flixel.util.FlxColor;
 class MenuState extends FlxState
 {
 	// Constructor
-	override public function create():Void
-	{
+	override public function create():Void {
 		super.create();
 		disableCursor();
 		createTitle();
@@ -39,13 +38,12 @@ class MenuState extends FlxState
 	// Update Keyboard statement
 	private function updateKeyboard() {
 		if(FlxG.keys.justReleased.ENTER) {
-			trace("test");
+			FlxG.switchState(new PlayState());
 		}
 	}
 
 	// General update
-	override public function update(elapsed:Float):Void
-	{
+	override public function update(elapsed:Float):Void {
 		super.update(elapsed);
 		updateKeyboard();
 	}
