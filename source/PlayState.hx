@@ -12,6 +12,7 @@ class PlayState extends FlxState
 	private var hitmap : FlxTypedGroup<FlxSprite>;
 	public static var width : Int = 720;
 	public static var height : Int = 416;
+	public static var box_height : Int = 32;
 
 	override public function create():Void
 	{
@@ -27,7 +28,8 @@ class PlayState extends FlxState
 
 	private function collisions() {
 		// Here create all of your collisions
-		box(0, height-32, 150, 32, FlxColor.WHITE);
+		box(0, height-box_height, 150, box_height, FlxColor.WHITE);
+		box(280, height-box_height, width-280, box_height, FlxColor.WHITE);
 	}
 
 	private function box(x:Int, y:Int, w:Int, h:Int, color:FlxColor) {
