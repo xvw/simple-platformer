@@ -38,7 +38,7 @@ class Player extends FlxSprite {
   }
 
   private function updateLateralMovement() {
-    if (FlxG.keys.pressed.SPACE) {
+    if (FlxG.keys.pressed.SPACE || FlxG.keys.pressed.UP) {
       jump();
     }
     if (FlxG.keys.pressed.RIGHT) {
